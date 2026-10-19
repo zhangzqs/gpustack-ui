@@ -126,6 +126,8 @@ export interface LocaleLoaders {
  */
 export interface AppPluginContext {
   request: <T = any>(url: string, options?: Record<string, any>) => Promise<T>;
+  /** Public pages must initialize without signed-in identity or tenant probes. */
+  isPublicPage?: boolean;
   setUserSettings?: (value: Record<string, any>) => void;
   setStorageUserSettings?: (value: Record<string, any>) => void;
   defaultColorPrimary?: string;
@@ -135,6 +137,9 @@ export interface AppPluginContext {
  * application plugin interface
  */
 export interface AppPlugin {
+  /** Exact router paths that can initialize without a management session. */
+  publicRoutes?: string[];
+
   /**
    * application initialization hook
    * called when the application starts, can return initialization data
